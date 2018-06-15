@@ -1,0 +1,22 @@
+import csv
+f = open('서울 범죄 만명당 5대범죄.csv')
+
+data = csv.reader(f)
+next(data)
+data = list(data)
+data.sort()
+n=input('각 범죄의 발생 비율이 궁금한 지역을 입력해 주세요 : ')
+a=[]
+for row in data :  
+    if str(row[0]) == n : 
+        for i in [2,4,5,6,7] :
+            a.append(float(row[i]))
+
+import matplotlib.pyplot as plt
+plt.rc('font', family = 'Malgun Gothic')
+plt.title('각 범죄의 발생 비율')
+labels='살인','강도','절도','폭력','성폭력'
+colors = ['yellowgreen', 'gold','pink','lightskyblue', 'lightcoral']
+explode=[0.2,0.2,0.05,0.05,0.05]
+plt.axis('equal')
+plt.pie(a, explode=explode, labels=labels, colors=colors,autopct='%1.1f%%',startangle=90)
